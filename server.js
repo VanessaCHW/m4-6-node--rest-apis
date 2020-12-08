@@ -3,6 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
+const {clients} = require('./data/clients');
+const {getClientList, getClientByID, addClient, deleteClient} = require('./handlers/clientHandlers');
 
 express()
   .use(function (req, res, next) {
@@ -19,5 +21,9 @@ express()
   .use(express.urlencoded({ extended: false }))
 
   // endpoints
+  .get('/clients', getClientList)
+  .get('/client/:id', getClientByID)
+  .post('/clients', addClient)
+  .delete('/clients', deleteClient)
 
   .listen(8000, () => console.log(`Listening on port 8000`));
