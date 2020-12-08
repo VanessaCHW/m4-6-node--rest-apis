@@ -3,8 +3,8 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const morgan = require('morgan');
-const {clients} = require('./data/clients');
 const {getClientList, getClientByID, addClient, deleteClient} = require('./handlers/clientHandlers');
+const {getWordByID, getRandomWord, guessLetter} = require('./handlers/hangmanHandlers');
 
 express()
   .use(function (req, res, next) {
@@ -25,5 +25,9 @@ express()
   .get('/client/:id', getClientByID)
   .post('/clients', addClient)
   .delete('/clients', deleteClient)
+
+  .get("/hangman/word/:id", getWordByID)
+  .get("/hangman/word",getRandomWord)
+  .get("/hangman/guess/:id/:letter",guessLetter)
 
   .listen(8000, () => console.log(`Listening on port 8000`));
